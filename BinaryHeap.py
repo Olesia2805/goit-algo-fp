@@ -66,10 +66,9 @@ def myBFS(node):
         if current_node.key not in visited:
             visited.add(current_node.key)
             print(current_node.key, end=' ')
-
+            
             if current_node.left:
                 queue.append(current_node.left)
-                
             if current_node.right:
                 queue.append(current_node.right)
 
