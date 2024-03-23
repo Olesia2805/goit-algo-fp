@@ -1,6 +1,7 @@
 import uuid
 import networkx as nx
 import matplotlib.pyplot as plt
+import collections
 
 class TreeNode:
     def __init__(self, key, color="lightgreen"):
@@ -37,12 +38,47 @@ def visualize_binary_tree(root):
     nx.draw(tree, pos=pos, labels=labels, arrows=False, node_size=2500, node_color=colors)
     plt.show()
 
+
+def myDFS(node, visited=None):
+
+    if visited is None:
+        visited = set()
+
+    visited.add(node.key)
+
+    print(node.key, end=' ')
+
+    if node.left and node.left.key not in visited:
+        myDFS(node.left, visited)
+
+    if node.right and node.right.key not in visited:
+        myDFS(node.right, visited)
+
+def myBFS(node):
+
+    visited = set()
+    queue = collections.deque([node])
+
+    while queue:
+
+        current_node = queue.popleft()
+
+        if current_node.key not in visited:
+            visited.add(current_node.key)
+            print(current_node.key, end=' ')
+
+            if current_node.left:
+                queue.append(current_node.left)
+                
+            if current_node.right:
+                queue.append(current_node.right)
+
 # Start root
 root = TreeNode(0)
 
 nodes = [root]
 
-for key in [4, 5, 10, 1, 3]:
+for key in [4, 1, 5, 10, 3]:
 
     node = TreeNode(key)
 
@@ -59,3 +95,8 @@ for key in [4, 5, 10, 1, 3]:
         parent.right = node
 
 visualize_binary_tree(root)
+
+print("DFS:")
+myDFS(root)
+print("\nBFS:")
+myBFS(root)
