@@ -32,7 +32,29 @@ def plot_probabilities(probabilities):
 
 
 if __name__ == "__main__":
+
     for accuracy in [100, 1000, 10000, 100000]:
+
         probabilities = simulate_dice_rolls(accuracy)
 
+        sum = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+        analytical = [2.78, 5.56, 8.33, 11.11, 13.89, 16.67, 13.89, 11.11, 8.33, 5.56, 2.78]
+
+        programmatic = []
+
+        for val in probabilities.values():
+            val = 100 * val
+            val = round(val, 2)
+            programmatic.append(val)
+    
         plot_probabilities(probabilities)
+
+        print (f"|{'-'*15} | {'-'*15} | {'-'*15} | {'-'*15} |")
+        print (f"|{'Sum':<15} | {'Analytical(%)':<15} | {'Programmatic(%)':<15} | {'Difference':<15} |")
+        print (f"|{'-'*15} | {'-'*15} | {'-'*15} | {'-'*15} |")
+        for i in range(len(sum)):
+            difference = programmatic[i] - analytical[i]
+            print(f"|{sum[i]:<15} | {analytical[i]:<15} | {programmatic[i]:<15} | {difference:<15.2f} |")
+
+        print (f"|{'-'*15} | {'-'*15} | {'-'*15} | {'-'*15} |")
