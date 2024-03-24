@@ -38,41 +38,23 @@ def visualize_binary_tree(root):
     nx.draw(tree, pos=pos, labels=labels, arrows=False, node_size=2500, node_color=colors)
     plt.show()
 
-def visualize_DFS(root):
-    tree = nx.DiGraph()
-    pos = {root.id: (0, 0)}
 
-    def myDFS(node, visited=None):
-        n = 0
-        color=(1.0+n, 0.92+n, 0.23+n)
-    
-        if visited is None:
-            visited = set()
-    
-        n += 1
+def myDFS(node, visited=None):
 
-        visited.add(node.key)
+    if visited is None:
+        visited = set()
 
-        print(node.key, end=' ')
+    visited.add(node.key)
 
-        if node.left and node.left.key not in visited:
-            myDFS(node.left, visited)
+    print(node.key, end=' ')
 
-        if node.right and node.right.key not in visited:
-            myDFS(node.right, visited)
+    if node.left and node.left.key not in visited:
+        myDFS(node.left, visited)
 
-    myDFS(root)
+    if node.right and node.right.key not in visited:
+        myDFS(node.right, visited)
 
-    colors = [node[1]['color'] for node in tree.nodes(data=True)]
-    labels = {node[0]: node[1]['label'] for node in tree.nodes(data=True)}
-
-    plt.figure(figsize=(8, 5))
-    nx.draw(tree, pos=pos, labels=labels, arrows=False, node_size=2500, node_color=colors)
-    plt.show()
-
-
-
-'''def myBFS(node):
+def myBFS(node):
 
     visited = set()
     queue = collections.deque([node])
@@ -88,7 +70,7 @@ def visualize_DFS(root):
             if current_node.left:
                 queue.append(current_node.left)
             if current_node.right:
-                queue.append(current_node.right)'''
+                queue.append(current_node.right)
 
 # Start root
 root = TreeNode(0)
@@ -112,4 +94,8 @@ for key in [4, 1, 5, 10, 3]:
         parent.right = node
 
 visualize_binary_tree(root)
-visualize_DFS(root)
+
+print("DFS:")
+myDFS(root)
+print("\nBFS:")
+myBFS(root)
