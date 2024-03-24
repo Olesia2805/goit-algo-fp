@@ -1,5 +1,3 @@
-import sortedcontainers
-
 class Node:
     def __init__(self, data=None):
         self.data = data
@@ -9,6 +7,7 @@ class Node:
 class LinkedList:
     def __init__(self):
         self.head = None
+        self.next = None
 
     def insert_at_beginning(self, data):
         new_node = Node(data)
@@ -27,7 +26,7 @@ class LinkedList:
 
     def insert_after(self, prev_node: Node, data):
         if prev_node is None:
-            print("Попереднього вузла не існує.")
+            print("The previous node does not exist.")
             return
         new_node = Node(data)
         new_node.next = prev_node.next
@@ -117,34 +116,31 @@ class LinkedList:
 
         return result
 
-'''    def merge_sorted_lists(self, list1, list2):
-        dummy_head = Node(0)
-        tail = dummy_head
-        l1 = list1.head  # Отримуємо голову списку
-        l2 = list2.head  # Отримуємо голову списку
+    def merge_sorted_lists(self, list1, list2):
+        dummy = Node()  # Dummy node to build the merged list
+        tail = dummy
 
         while True:
-            if l1 is None:
-                tail.next = l2
+            # If either list1 or list2 becomes empty, append the remaining nodes of the other list
+            if list1 is None:
+                tail.next = list2
                 break
-            if l2 is None:
-                tail.next = l1
+            elif list2 is None:
+                tail.next = list1
                 break
 
-            if l1.data <= l2.data:
-                tail.next = l1
-                l1 = l1.next
+            # Compare the data of the nodes and append the smaller one to the merged list
+            if list1.data <= list2.data:
+                tail.next = list1
+                list1 = list1.next
             else:
-                tail.next = l2
-                l2 = l2.next
+                tail.next = list2
+                list2 = list2.next
 
             tail = tail.next
-        
-        merged_head = dummy_head.next
 
-        sorted_list = self.merge_sort(merged_head)
-
-        return sorted_list'''
+        # Update the head of the merged list
+        self.head = dummy.next
 
 if __name__ == '__main__':
 
@@ -155,22 +151,25 @@ if __name__ == '__main__':
     first_list.insert_at_beginning(15)
     first_list.insert_at_end(20)
     first_list.insert_at_end(25)
-    print("Зв'язний список:")
+    print("First linked list:")
     first_list.print_list()
 
     first_list.reverse()
-    print("Зв'язний список після реверсування :")
+    print("Linked list after reversal:")
     first_list.print_list()
 
     first_list.head = first_list.merge_sort(first_list.head)
-    print("Зв'язний список відсортовано:")
+    print("Linked list sorted:")
     first_list.print_list()
 
     second_list = LinkedList()
-    first_list.insert_at_beginning(59)
-    first_list.insert_at_beginning(20)
-    first_list.insert_at_beginning(35)
+    second_list.insert_at_beginning(2)
+    second_list.insert_at_end(12)
+    second_list.insert_at_end(18)
+    print("Second linked list:")
+    second_list.print_list()
 
-    first_list.merge_sorted_lists(first_list, second_list)
-    print("Зв'язний список відсортовано та замерджено:")
-    first_list.print_list()
+    merged_list = LinkedList()
+    merged_list.merge_sorted_lists(first_list.head, second_list.head)
+    print("Merged and sorted linked list:")
+    merged_list.print_list()
