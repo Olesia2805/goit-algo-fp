@@ -93,7 +93,7 @@ for key in [4, 1, 5, 10, 3]:
     else:
         parent.right = node
 
-visualize_binary_tree(root)
+heap_tree_root = visualize_binary_tree(root)
 
 print("DFS:")
 myDFS(root)
