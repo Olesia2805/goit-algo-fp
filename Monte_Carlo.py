@@ -21,9 +21,9 @@ def plot_probabilities(probabilities):
     probs = list(probabilities.values())
 
     plt.bar(sums, probs, tick_label=sums)
-    plt.xlabel('Сума чисел на кубиках')
-    plt.ylabel('Ймовірність')
-    plt.title('Ймовірність суми чисел на двох кубиках')
+    plt.xlabel('The sum of the numbers on the dice')
+    plt.ylabel('Probability')
+    plt.title('The probability of the sum of the numbers on two dice')
     
     for i, prob in enumerate(probs):
         plt.text(sums[i], prob, f"{prob*100:.2f}%", ha='center')
